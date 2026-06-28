@@ -132,12 +132,6 @@ ServerOpsToolkit/
 
 - vCenter credentials are prompted once per session (not stored in the app).
 - AD unlock/disable actions require appropriate delegated permissions.
-- Command Runner executes arbitrary PowerShell on remote servers -- restrict access.
+- Command Runner executes arbitrary PowerShell on remote servers -- restrict access
 - For production, sign scripts and use constrained execution policy.
 
-## Good next features to ask Cursor for
-
-- Role-based tab visibility
-- Scheduled fleet report email
-- Graph API cloud-only user lookup
-- vCenter credential per-server in Credential Manager
