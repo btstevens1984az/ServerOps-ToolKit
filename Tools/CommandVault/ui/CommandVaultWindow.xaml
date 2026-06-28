@@ -1,0 +1,112 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Command Vault"
+        Height="640" Width="960"
+        MinHeight="480" MinWidth="720"
+        Background="#F1F5F9"
+        FontFamily="Segoe UI"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#2563EB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Background" Value="#E2E8F0"/>
+            <Setter Property="Foreground" Value="#0F172A"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,12">
+            <TextBlock Text="Command Vault" FontSize="22" FontWeight="Bold" Foreground="#0F172A"/>
+            <TextBlock Text="Searchable PowerShell command library with tags, favorites, and safe execute"
+                       Foreground="#64748B" FontSize="13"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Style="{StaticResource Card}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="txtSearch" Grid.Column="0" Height="30" Padding="8,4"
+                         VerticalContentAlignment="Center" FontSize="14"/>
+                <ComboBox x:Name="cboCategory" Grid.Column="1" Height="30" Margin="8,0,0,0"
+                          VerticalContentAlignment="Center"/>
+                <CheckBox x:Name="chkFavorites" Grid.Column="2" Content="Favorites only"
+                          VerticalAlignment="Center" Margin="12,0,0,0"/>
+                <Button x:Name="btnRefresh" Grid.Column="3" Content="Refresh"
+                        Style="{StaticResource SecondaryButton}" Margin="8,0,0,0" Width="90"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource Card}" Margin="0,0,8,0">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Commands" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <ListBox x:Name="lstCommands" DisplayMemberPath="title" BorderThickness="0"/>
+                </DockPanel>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource Card}">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock x:Name="txtSelectedTitle" Text="Select a command" FontWeight="SemiBold" FontSize="15"/>
+                        <TextBlock x:Name="txtSelectedTags" Margin="12,2,0,0" Foreground="#64748B" FontSize="12"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+                        <Button x:Name="btnFavorite" Content="Favorite" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnCopy" Content="Copy" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnExecute" Content="Execute" Style="{StaticResource PrimaryButton}"/>
+                    </StackPanel>
+                    <TextBox x:Name="txtCommandBody" AcceptsReturn="True" TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="13"
+                             IsReadOnly="True" BorderThickness="0" Background="#F8FAFC"/>
+                </DockPanel>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0,8,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="txtStatus" Grid.Column="0" VerticalAlignment="Center"
+                       Foreground="#64748B" FontSize="12" Text="Ready"/>
+            <Button x:Name="btnImport" Grid.Column="1" Content="Import JSON"
+                    Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+            <Button x:Name="btnExport" Grid.Column="2" Content="Export JSON"
+                    Style="{StaticResource SecondaryButton}"/>
+        </Grid>
+    </Grid>
+</Window>

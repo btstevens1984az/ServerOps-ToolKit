@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "name": "ITSM and Docs",
+      "links": [
+        { "key": "1", "title": "ServiceNow Portal", "url": "https://yourorg.service-now.com" },
+        { "key": "2", "title": "Confluence Ops Space", "url": "https://confluence.example.com/display/OPS" },
+        { "key": "3", "title": "Change Calendar", "url": "https://yourorg.service-now.com/change_calendar.do" }
+      ]
+    },
+    {
+      "name": "Virtualization",
+      "links": [
+        { "key": "4", "title": "vCenter Prod", "url": "https://vcenter-prod.example.local" },
+        { "key": "5", "title": "vCenter DR", "url": "https://vcenter-dr.example.local" },
+        { "key": "6", "title": "Content Libraries", "url": "https://vcenter-prod.example.local/csd/library" }
+      ]
+    },
+    {
+      "name": "Network and DNS",
+      "links": [
+        { "key": "7", "title": "Infoblox Grid", "url": "https://infoblox.example.local" },
+        { "key": "8", "title": "Firewall Manager", "url": "https://fw-mgmt.example.local" }
+      ]
+    },
+    {
+      "name": "Monitoring and Security",
+      "links": [
+        { "key": "9", "title": "SolarWinds Orion", "url": "https://orion.example.local" },
+        { "key": "0", "title": "CrowdStrike Falcon", "url": "https://falcon.crowdstrike.com" },
+        { "key": "a", "title": "WSUS Console", "url": "https://wsus.example.local:8530" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "2024.1",
+  "source": "ServerOpsToolkit - Thwack-inspired community patterns",
+  "dashboard": {
+    "name": "Certificate Expiration Radar",
+    "description": "Modern Orion dashboard for Security infrastructure monitoring.",
+    "category": "Security",
+    "tags": [
+      "Security",
+      "Infrastructure",
+      "ServerOpsToolkit"
+    ],
+    "autoRefresh": 300,
+    "widgets": [
+      {
+        "id": "w-15-0",
+        "title": "Status Summary",
+        "type": "Status",
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        },
+        "dataSettings": {
+          "swql": "SELECT Status, COUNT(*) AS Count FROM Orion.Nodes GROUP BY Status",
+          "refreshRate": 300,
+          "chartType": "table"
+        }
+      },
+      {
+        "id": "w-15-1",
+        "title": "Top Offenders",
+        "type": "Table",
+        "layout": {
+          "x": 6,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        },
+        "dataSettings": {
+          "swql": "SELECT CertificateName, ExpirationDate, DaysUntilExpiration FROM Orion.CertificateManager.Certificates WHERE DaysUntilExpiration < 90 ORDER BY DaysUntilExpiration ASC",
+          "refreshRate": 300,
+          "chartType": "table"
+        }
+      },
+      {
+        "id": "w-15-2",
+        "title": "24 Hour Trend",
+        "type": "Timeseries",
+        "layout": {
+          "x": 0,
+          "y": 4,
+          "width": 6,
+          "height": 4
+        },
+        "dataSettings": {
+          "swql": "SELECT DateTime, AVG(StatValue) AS Value FROM Orion.ResponseTime WHERE DateTime > GETDATE()-1 GROUP BY DateTime",
+          "refreshRate": 300,
+          "chartType": "line"
+        }
+      },
+      {
+        "id": "w-15-3",
+        "title": "Alert Count",
+        "type": "Counter",
+        "layout": {
+          "x": 6,
+          "y": 4,
+          "width": 6,
+          "height": 4
+        },
+        "dataSettings": {
+          "swql": "SELECT COUNT(*) AS ActiveAlerts FROM Orion.AlertActive",
+          "refreshRate": 300,
+          "chartType": "table"
+        }
+      }
+    ]
+  }
+}

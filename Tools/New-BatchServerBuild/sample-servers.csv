@@ -1,0 +1,4 @@
+ServerName,Role,OSVersion,DomainJoin,DomainName,OUPath,vCenter,ContentLibrary,Template,Cluster,Datastore,Network,vCPU,MemoryGB,DiskGB,Hardening,Applications
+srv-web-01,Web Server (IIS),2022 Standard,true,contoso.local,"OU=Servers,DC=contoso,DC=local",vcenter-prod.example.local,Windows-Server-Templates,Win2022-Std-Base,Prod-Cluster,vsanDatastore,VLAN-100-App,4,16,128,CIS Level 1,"IIS,.NET 4.8"
+srv-sql-02,SQL Server,2022 Standard,true,contoso.local,"OU=SQL,DC=contoso,DC=local",vcenter-prod.example.local,Windows-Server-Templates,Win2022-Std-Base,Prod-Cluster,vsanDatastore,VLAN-200-DB,8,32,512,CIS Level 2,"SQL Server 2022"
+srv-app-03,Vendor Application Server,2019 Standard,true,contoso.local,"OU=Apps,DC=contoso,DC=local",vcenter-prod.example.local,Windows-Server-Templates,Win2019-Std-Base,Prod-Cluster,vsanDatastore,VLAN-100-App,4,16,256,CIS Level 1,"VendorApp,CrowdStrike"

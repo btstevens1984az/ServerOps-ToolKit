@@ -1,0 +1,186 @@
+{
+  "generated": "2026-06-27T17:47:43.099Z",
+  "count": 30,
+  "dashboards": [
+    {
+      "id": "01",
+      "title": "Windows Server Fleet Health Overview",
+      "category": "Windows",
+      "file": "dashboard-01-windows-server-fleet-health-overview.json"
+    },
+    {
+      "id": "02",
+      "title": "Linux Server Fleet Health Overview",
+      "category": "Linux",
+      "file": "dashboard-02-linux-server-fleet-health-overview.json"
+    },
+    {
+      "id": "03",
+      "title": "Virtual Windows Server Performance",
+      "category": "VMware",
+      "file": "dashboard-03-virtual-windows-server-performance.json"
+    },
+    {
+      "id": "04",
+      "title": "Virtual Linux Server Performance",
+      "category": "VMware",
+      "file": "dashboard-04-virtual-linux-server-performance.json"
+    },
+    {
+      "id": "05",
+      "title": "Physical Server Hardware Health",
+      "category": "Hardware",
+      "file": "dashboard-05-physical-server-hardware-health.json"
+    },
+    {
+      "id": "06",
+      "title": "Critical Windows Services Availability",
+      "category": "Windows",
+      "file": "dashboard-06-critical-windows-services-availability.json"
+    },
+    {
+      "id": "07",
+      "title": "Critical Linux Daemon Availability",
+      "category": "Linux",
+      "file": "dashboard-07-critical-linux-daemon-availability.json"
+    },
+    {
+      "id": "08",
+      "title": "Cross-Platform CPU Hotspots",
+      "category": "Mixed",
+      "file": "dashboard-08-cross-platform-cpu-hotspots.json"
+    },
+    {
+      "id": "09",
+      "title": "Memory Pressure Alert Board",
+      "category": "Mixed",
+      "file": "dashboard-09-memory-pressure-alert-board.json"
+    },
+    {
+      "id": "10",
+      "title": "Windows Disk Capacity and Forecast",
+      "category": "Windows",
+      "file": "dashboard-10-windows-disk-capacity-and-forecast.json"
+    },
+    {
+      "id": "11",
+      "title": "Linux Filesystem Capacity and Forecast",
+      "category": "Linux",
+      "file": "dashboard-11-linux-filesystem-capacity-and-forecast.json"
+    },
+    {
+      "id": "12",
+      "title": "WSUS Patch Compliance Summary",
+      "category": "Patching",
+      "file": "dashboard-12-wsus-patch-compliance-summary.json"
+    },
+    {
+      "id": "13",
+      "title": "SCCM Patch Compliance Dashboard",
+      "category": "Patching",
+      "file": "dashboard-13-sccm-patch-compliance-dashboard.json"
+    },
+    {
+      "id": "14",
+      "title": "Linux Package Patch Status",
+      "category": "Patching",
+      "file": "dashboard-14-linux-package-patch-status.json"
+    },
+    {
+      "id": "15",
+      "title": "Certificate Expiration Radar",
+      "category": "Security",
+      "file": "dashboard-15-certificate-expiration-radar.json"
+    },
+    {
+      "id": "16",
+      "title": "Internal PKI Cert 30-60-90 Day View",
+      "category": "Security",
+      "file": "dashboard-16-internal-pki-cert-30-60-90-day-view.json"
+    },
+    {
+      "id": "17",
+      "title": "Web Server SSL TLS Certificate Monitor",
+      "category": "Security",
+      "file": "dashboard-17-web-server-ssl-tls-certificate-monitor.json"
+    },
+    {
+      "id": "18",
+      "title": "Windows Critical Event Log Errors",
+      "category": "Windows",
+      "file": "dashboard-18-windows-critical-event-log-errors.json"
+    },
+    {
+      "id": "19",
+      "title": "Linux Syslog Severity Dashboard",
+      "category": "Linux",
+      "file": "dashboard-19-linux-syslog-severity-dashboard.json"
+    },
+    {
+      "id": "20",
+      "title": "Active Directory Domain Controller Health",
+      "category": "Windows",
+      "file": "dashboard-20-active-directory-domain-controller-health.json"
+    },
+    {
+      "id": "21",
+      "title": "DNS Resolution Performance",
+      "category": "Network",
+      "file": "dashboard-21-dns-resolution-performance.json"
+    },
+    {
+      "id": "22",
+      "title": "Server-to-Server Network Latency",
+      "category": "Network",
+      "file": "dashboard-22-server-to-server-network-latency.json"
+    },
+    {
+      "id": "23",
+      "title": "VMware Cluster Capacity and Oversubscription",
+      "category": "VMware",
+      "file": "dashboard-23-vmware-cluster-capacity-and-oversubscription.json"
+    },
+    {
+      "id": "24",
+      "title": "Hyper-V Host Capacity Overview",
+      "category": "Hyper-V",
+      "file": "dashboard-24-hyper-v-host-capacity-overview.json"
+    },
+    {
+      "id": "25",
+      "title": "SQL Server Instance Health",
+      "category": "Application",
+      "file": "dashboard-25-sql-server-instance-health.json"
+    },
+    {
+      "id": "26",
+      "title": "IIS Web Server Availability and Response",
+      "category": "Application",
+      "file": "dashboard-26-iis-web-server-availability-and-response.json"
+    },
+    {
+      "id": "27",
+      "title": "RDS Session Host Load and Sessions",
+      "category": "Windows",
+      "file": "dashboard-27-rds-session-host-load-and-sessions.json"
+    },
+    {
+      "id": "28",
+      "title": "Backup Job Success Rate",
+      "category": "Operations",
+      "file": "dashboard-28-backup-job-success-rate.json"
+    },
+    {
+      "id": "29",
+      "title": "EDR and Antivirus Agent Status",
+      "category": "Security",
+      "file": "dashboard-29-edr-and-antivirus-agent-status.json"
+    },
+    {
+      "id": "30",
+      "title": "Change Window Infrastructure Readiness",
+      "category": "Operations",
+      "file": "dashboard-30-change-window-infrastructure-readiness.json"
+    }
+  ]
+}

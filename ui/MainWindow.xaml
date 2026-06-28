@@ -1,0 +1,566 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hybrid Infra Console"
+        Height="780" Width="1200"
+        MinHeight="640" MinWidth="960"
+        Background="#F1F5F9"
+        FontFamily="Segoe UI"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#2563EB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#E2E8F0"/>
+            <Setter Property="Foreground" Value="#0F172A"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource SecondaryButton}">
+            <Setter Property="Background" Value="#FEE2E2"/>
+            <Setter Property="Foreground" Value="#B91C1C"/>
+        </Style>
+
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#0F172A"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style x:Key="MutedText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#64748B"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock x:Name="txtHeaderTitle" Text="Hybrid Infra Console" FontSize="26" FontWeight="Bold" Foreground="#0F172A"/>
+                <TextBlock x:Name="txtHeaderSubtitle" Style="{StaticResource MutedText}"
+                           Text="Multi-vSphere VM fleet, Active Directory identity ops, and Windows Server management"/>
+            </StackPanel>
+            <Button x:Name="btnThemeToggle" Grid.Column="1" Content="Dark mode"
+                    Style="{StaticResource SecondaryButton}" VerticalAlignment="Top"/>
+        </Grid>
+
+        <!-- Connection bar -->
+        <Border x:Name="borderConnBar" Grid.Row="1" Style="{StaticResource Card}" Margin="0,0,0,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Server" VerticalAlignment="Center"
+                           Margin="0,0,12,0" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtServer" Grid.Column="1" Height="32" Padding="8,4"
+                         VerticalContentAlignment="Center"
+                         Text="localhost" FontSize="14"/>
+                <Button x:Name="btnConnect" Grid.Column="2" Content="Connect"
+                        Style="{StaticResource PrimaryButton}" Margin="12,0,8,0" Width="100"/>
+                <Button x:Name="btnDisconnect" Grid.Column="3" Content="Disconnect"
+                        Style="{StaticResource SecondaryButton}" Width="100"/>
+            </Grid>
+        </Border>
+
+        <!-- Tabs -->
+        <TabControl x:Name="mainTabs" Grid.Row="2" BorderThickness="0" Background="Transparent">
+            <TabItem Header="Dashboard">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="4">
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitle}" Text="Connection"/>
+                                <TextBlock x:Name="txtDashboardServer" FontSize="15" Margin="0,0,0,4"/>
+                                <TextBlock x:Name="txtDashboardOs" Style="{StaticResource MutedText}"/>
+                                <TextBlock x:Name="txtDashboardUptime" Style="{StaticResource MutedText}" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitle}" Text="Quick actions"/>
+                                <WrapPanel>
+                                    <Button x:Name="btnDashHealth" Content="Refresh health"
+                                            Style="{StaticResource SecondaryButton}" Margin="0,0,8,8"/>
+                                    <Button x:Name="btnDashServices" Content="Load services"
+                                            Style="{StaticResource SecondaryButton}" Margin="0,0,8,8"/>
+                                    <Button x:Name="btnDashEvents" Content="Recent errors"
+                                            Style="{StaticResource SecondaryButton}" Margin="0,0,8,8"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitle}" Text="Tips"/>
+                                <TextBlock Style="{StaticResource MutedText}" TextWrapping="Wrap"
+                                           Text="Start on the VMware Fleet tab to connect your vCenters, or Active Directory to search users and unlock accounts. Use the Server bar above for WinRM/CIM server management."/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="VMware Fleet">
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Style="{StaticResource Card}">
+                        <WrapPanel>
+                            <StackPanel Margin="0,0,24,0">
+                                <TextBlock Style="{StaticResource MutedText}" Text="vCenters"/>
+                                <TextBlock x:Name="txtVmwareVCenters" FontSize="22" FontWeight="Bold" Text="0"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,24,0">
+                                <TextBlock Style="{StaticResource MutedText}" Text="Total VMs"/>
+                                <TextBlock x:Name="txtVmwareTotal" FontSize="22" FontWeight="Bold" Text="0"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,24,0">
+                                <TextBlock Style="{StaticResource MutedText}" Text="Powered On"/>
+                                <TextBlock x:Name="txtVmwareOn" FontSize="22" FontWeight="Bold" Foreground="#16A34A" Text="0"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,24,0">
+                                <TextBlock Style="{StaticResource MutedText}" Text="Powered Off"/>
+                                <TextBlock x:Name="txtVmwareOff" FontSize="22" FontWeight="Bold" Foreground="#64748B" Text="0"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource MutedText}" Text="With Snapshots"/>
+                                <TextBlock x:Name="txtVmwareSnaps" FontSize="22" FontWeight="Bold" Foreground="#CA8A04" Text="0"/>
+                            </StackPanel>
+                        </WrapPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12">
+                        <TextBox x:Name="txtVmFilter" Width="220" Height="32" Padding="8,4"
+                                 VerticalContentAlignment="Center" Margin="0,0,8,0"
+                                 ToolTip="Filter VMs by name"/>
+                        <Button x:Name="btnLoadFleet" Content="Load fleet"
+                                Style="{StaticResource PrimaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnLoadSnapshots" Content="Snapshot audit"
+                                Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnVmPowerOn" Content="Power On"
+                                Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnVmPowerOff" Content="Power Off"
+                                Style="{StaticResource DangerButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnExportVmware" Content="Export CSV"
+                                Style="{StaticResource SecondaryButton}"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="gridVmware" Grid.Row="2" AutoGenerateColumns="False"
+                              IsReadOnly="True" SelectionMode="Single"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="VM" Binding="{Binding VMName}" Width="180"/>
+                            <DataGridTextColumn Header="vCenter" Binding="{Binding vCenter}" Width="140"/>
+                            <DataGridTextColumn Header="Power" Binding="{Binding PowerState}" Width="100"/>
+                            <DataGridTextColumn Header="CPU" Binding="{Binding CPUs}" Width="50"/>
+                            <DataGridTextColumn Header="RAM (GB)" Binding="{Binding MemoryGB}" Width="80"/>
+                            <DataGridTextColumn Header="IP" Binding="{Binding IPAddress}" Width="110"/>
+                            <DataGridTextColumn Header="Cluster" Binding="{Binding Cluster}" Width="120"/>
+                            <DataGridTextColumn Header="Snaps" Binding="{Binding Snapshots}" Width="60"/>
+                            <DataGridTextColumn Header="Tools" Binding="{Binding ToolsStatus}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock x:Name="txtVmwareHint" Grid.Row="3" Style="{StaticResource MutedText}"
+                               Margin="0,8,0,0" TextWrapping="Wrap"
+                               Text="Connect vCenters on the Settings tab, then Load fleet."/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Active Directory">
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Style="{StaticResource MutedText}" Text="Domain"/>
+                                <TextBlock x:Name="txtAdDomain" FontWeight="SemiBold" FontSize="15"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Style="{StaticResource MutedText}" Text="Users"/>
+                                <TextBlock x:Name="txtAdUserCount" FontSize="18" FontWeight="Bold"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Style="{StaticResource MutedText}" Text="Locked out"/>
+                                <TextBlock x:Name="txtAdLockedCount" FontSize="18" FontWeight="Bold" Foreground="#DC2626"/>
+                            </StackPanel>
+                            <Button x:Name="btnAdRefreshDomain" Grid.Column="3" Content="Refresh domain"
+                                    Style="{StaticResource SecondaryButton}" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Style="{StaticResource MutedText}" Text="Azure AD Connect"/>
+                                <TextBlock x:Name="txtAdSyncServer" Style="{StaticResource MutedText}" Margin="0,2,0,0"/>
+                                <TextBlock x:Name="txtAdSyncStatus" FontWeight="SemiBold" FontSize="14" Margin="0,4,0,0"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Style="{StaticResource MutedText}" Text="Last sync event"/>
+                                <TextBlock x:Name="txtAdSyncLast" FontWeight="SemiBold" FontSize="14" Margin="0,4,0,0"/>
+                                <TextBlock x:Name="txtAdSyncDetail" Style="{StaticResource MutedText}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                            </StackPanel>
+                            <Button x:Name="btnAdSyncRefresh" Grid.Column="2" Content="Refresh sync"
+                                    Style="{StaticResource SecondaryButton}" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12">
+                        <TextBox x:Name="txtAdSearch" Width="260" Height="32" Padding="8,4"
+                                 VerticalContentAlignment="Center" Margin="0,0,8,0"
+                                 ToolTip="Name, SAM, UPN, or email"/>
+                        <Button x:Name="btnAdSearch" Content="Search users"
+                                Style="{StaticResource PrimaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnAdLocked" Content="Locked accounts"
+                                Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnAdUnlock" Content="Unlock"
+                                Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnAdEnable" Content="Enable"
+                                Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnAdDisable" Content="Disable"
+                                Style="{StaticResource DangerButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnAdStale" Content="Stale computers"
+                                Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnExportAd" Content="Export CSV"
+                                Style="{StaticResource SecondaryButton}"/>
+                    </StackPanel>
+
+                    <Grid Grid.Row="3">
+                        <DataGrid x:Name="gridAdUsers" AutoGenerateColumns="False"
+                                  IsReadOnly="True" SelectionMode="Single"
+                                  HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Display name" Binding="{Binding DisplayName}" Width="160"/>
+                                <DataGridTextColumn Header="SAM" Binding="{Binding SamAccountName}" Width="120"/>
+                                <DataGridTextColumn Header="UPN" Binding="{Binding UPN}" Width="180"/>
+                                <DataGridTextColumn Header="Enabled" Binding="{Binding Enabled}" Width="70"/>
+                                <DataGridTextColumn Header="Locked" Binding="{Binding LockedOut}" Width="70"/>
+                                <DataGridTextColumn Header="Last logon" Binding="{Binding LastLogon}" Width="140"/>
+                                <DataGridTextColumn Header="Groups" Binding="{Binding GroupCount}" Width="70"/>
+                                <DataGridTextColumn Header="Identity" Binding="{Binding HybridIdentity}" Width="110"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <DataGrid x:Name="gridAdStale" Visibility="Collapsed" AutoGenerateColumns="False"
+                                  IsReadOnly="True" SelectionMode="Single"
+                                  HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Computer" Binding="{Binding Name}" Width="180"/>
+                                <DataGridTextColumn Header="SAM" Binding="{Binding SamAccountName}" Width="140"/>
+                                <DataGridTextColumn Header="OS" Binding="{Binding OperatingSystem}" Width="180"/>
+                                <DataGridTextColumn Header="Enabled" Binding="{Binding Enabled}" Width="70"/>
+                                <DataGridTextColumn Header="Last logon" Binding="{Binding LastLogon}" Width="140"/>
+                                <DataGridTextColumn Header="Days stale" Binding="{Binding DaysStale}" Width="90"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <DataGrid x:Name="gridAdConnectors" Visibility="Collapsed" AutoGenerateColumns="False"
+                                  IsReadOnly="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Connector" Binding="{Binding Connector}" Width="200"/>
+                                <DataGridTextColumn Header="Profile" Binding="{Binding Profile}" Width="140"/>
+                                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+                                <DataGridTextColumn Header="Start" Binding="{Binding StartTime}" Width="150"/>
+                                <DataGridTextColumn Header="End" Binding="{Binding EndTime}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+
+                    <DataGrid x:Name="gridAdDCs" Grid.Row="4" AutoGenerateColumns="False"
+                              IsReadOnly="True" HeadersVisibility="Column" Height="120" Margin="0,12,0,0"
+                              GridLinesVisibility="Horizontal">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Domain Controller" Binding="{Binding Name}" Width="200"/>
+                            <DataGridTextColumn Header="Host" Binding="{Binding HostName}" Width="220"/>
+                            <DataGridTextColumn Header="Site" Binding="{Binding Site}" Width="120"/>
+                            <DataGridTextColumn Header="GC" Binding="{Binding IsGlobalCatalog}" Width="50"/>
+                            <DataGridTextColumn Header="Reachable" Binding="{Binding Reachable}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Health">
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnRefreshHealth" Grid.Row="0" Content="Refresh health"
+                            Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Margin="0,0,0,12"/>
+
+                    <Border Grid.Row="1" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock x:Name="txtHealthOs" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="txtHealthCpu" Style="{StaticResource MutedText}" Margin="0,4,0,0"/>
+                                <TextBlock x:Name="txtHealthMemory" Style="{StaticResource MutedText}" Margin="0,4,0,0"/>
+                                <TextBlock x:Name="txtHealthUptime" Style="{StaticResource MutedText}" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <DataGrid x:Name="gridDisks" Grid.Row="2" AutoGenerateColumns="False"
+                              IsReadOnly="True" HeadersVisibility="Column"
+                              GridLinesVisibility="Horizontal" Background="White"
+                              BorderBrush="#E2E8F0" BorderThickness="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Drive" Binding="{Binding Drive}" Width="80"/>
+                            <DataGridTextColumn Header="Label" Binding="{Binding Label}" Width="120"/>
+                            <DataGridTextColumn Header="Size (GB)" Binding="{Binding SizeGB}" Width="90"/>
+                            <DataGridTextColumn Header="Free (GB)" Binding="{Binding FreeGB}" Width="90"/>
+                            <DataGridTextColumn Header="Free %" Binding="{Binding FreePercent}" Width="80"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Services">
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                        <TextBox x:Name="txtServiceFilter" Width="220" Height="32" Padding="8,4"
+                                 VerticalContentAlignment="Center" Margin="0,0,8,0"
+                                 ToolTip="Filter by name or display name"/>
+                        <Button x:Name="btnLoadServices" Content="Load services"
+                                Style="{StaticResource PrimaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnStartService" Content="Start"
+                                Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnStopService" Content="Stop"
+                                Style="{StaticResource DangerButton}" Margin="0,0,8,0"/>
+                        <Button x:Name="btnRestartService" Content="Restart"
+                                Style="{StaticResource SecondaryButton}"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="gridServices" Grid.Row="1" AutoGenerateColumns="False"
+                              IsReadOnly="True" SelectionMode="Single"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="160"/>
+                            <DataGridTextColumn Header="Display name" Binding="{Binding DisplayName}" Width="*"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+                            <DataGridTextColumn Header="Start type" Binding="{Binding StartType}" Width="120"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Event Log">
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                        <ComboBox x:Name="cboLogName" Width="140" Height="32" Margin="0,0,8,0">
+                            <ComboBoxItem Content="System" IsSelected="True"/>
+                            <ComboBoxItem Content="Application"/>
+                        </ComboBox>
+                        <ComboBox x:Name="cboLogLevel" Width="120" Height="32" Margin="0,0,8,0">
+                            <ComboBoxItem Content="Error" IsSelected="True"/>
+                            <ComboBoxItem Content="Warning"/>
+                            <ComboBoxItem Content="Information"/>
+                            <ComboBoxItem Content="All"/>
+                        </ComboBox>
+                        <Button x:Name="btnLoadEvents" Content="Load events"
+                                Style="{StaticResource PrimaryButton}"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="gridEvents" Grid.Row="1" AutoGenerateColumns="False"
+                              IsReadOnly="True" HeadersVisibility="Column">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Time" Binding="{Binding TimeCreated}" Width="160"/>
+                            <DataGridTextColumn Header="Level" Binding="{Binding LevelDisplayName}" Width="90"/>
+                            <DataGridTextColumn Header="Source" Binding="{Binding ProviderName}" Width="180"/>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
+                            <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Command Runner">
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox x:Name="txtCommand" Grid.Row="0" Height="36" Padding="8,4"
+                             VerticalContentAlignment="Center" Margin="0,0,0,8"
+                             Text="Get-Service | Where-Object Status -eq 'Running' | Select-Object -First 10 Name, Status"/>
+
+                    <TextBox x:Name="txtCommandOutput" Grid.Row="1"
+                             IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto" FontFamily="Consolas"
+                             Background="#0F172A" Foreground="#E2E8F0" Padding="12"
+                             BorderThickness="0"/>
+
+                    <Button x:Name="btnRunCommand" Grid.Row="2" Content="Run on server"
+                            Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left"
+                            Margin="0,12,0,0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Settings">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="4">
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitle}" Text="Azure AD Connect"/>
+                                <TextBlock Style="{StaticResource MutedText}" TextWrapping="Wrap" Margin="0,0,0,8"
+                                           Text="Hostname of your Azure AD Connect server. Requires WinRM and Hybrid Identity admin rights."/>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBox x:Name="txtAadConnectServer" Width="320" Height="32" Padding="8,4"
+                                             VerticalContentAlignment="Center" Margin="0,0,8,0"/>
+                                    <Button x:Name="btnSaveSettings" Content="Save settings"
+                                            Style="{StaticResource PrimaryButton}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitle}" Text="Appearance"/>
+                                <CheckBox x:Name="chkDarkTheme" Content="Dark theme (on-call desk mode)" Margin="0,0,0,8"/>
+                                <TextBlock Style="{StaticResource MutedText}" TextWrapping="Wrap"
+                                           Text="Dark theme is saved to your config and applied on next launch. Use the header toggle for instant switch."/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitle}" Text="vCenter connections"/>
+                                <TextBlock Style="{StaticResource MutedText}" TextWrapping="Wrap" Margin="0,0,0,12"
+                                           Text="Edit config\settings.json.example and copy to %APPDATA%\HybridInfraConsole\settings.json, or add servers below. Requires VMware PowerCLI."/>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBox x:Name="txtNewVCenter" Width="280" Height="32" Padding="8,4"
+                                             VerticalContentAlignment="Center" Margin="0,0,8,0"
+                                             ToolTip="vcenter.yourdomain.local"/>
+                                    <TextBox x:Name="txtNewVCenterName" Width="160" Height="32" Padding="8,4"
+                                             VerticalContentAlignment="Center" Margin="0,0,8,0"
+                                             ToolTip="Friendly name (e.g. Production)"/>
+                                    <Button x:Name="btnAddVCenter" Content="Add"
+                                            Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"/>
+                                    <Button x:Name="btnConnectVCenters" Content="Connect all vCenters"
+                                            Style="{StaticResource PrimaryButton}"/>
+                                </StackPanel>
+                                <ListBox x:Name="lstVCenters" Height="100" Margin="0,0,0,8"/>
+                                <TextBlock x:Name="txtVcenterStatus" Style="{StaticResource MutedText}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitle}" Text="Prerequisites"/>
+                                <TextBlock Style="{StaticResource MutedText}" TextWrapping="Wrap"
+                                           Text="VMware: Install-Module VMware.PowerCLI -Scope CurrentUser&#x0a;AD: RSAT Active Directory tools (Windows Features or Optional Features)&#x0a;Servers: WinRM enabled on targets (Enable-PSRemoting -Force)"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitle}" Text="Config file location"/>
+                                <TextBlock x:Name="txtConfigPath" Style="{StaticResource MutedText}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <!-- Status bar -->
+        <Border x:Name="borderStatusBar" Grid.Row="3" Background="White" BorderBrush="#E2E8F0" BorderThickness="1"
+                CornerRadius="6" Padding="12,8" Margin="0,12,0,0">
+            <TextBlock x:Name="txtStatus" Style="{StaticResource MutedText}"
+                       Text="Ready - enter a server and click Connect."/>
+        </Border>
+
+        <!-- Busy overlay (shown during background work; UI thread stays responsive) -->
+        <Border x:Name="busyOverlay" Grid.RowSpan="4" Background="#B0F1F5F9"
+                Visibility="Collapsed" CornerRadius="4">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock x:Name="txtBusyMessage" Text="Working..." FontSize="15"
+                           FontWeight="SemiBold" Foreground="#0F172A" HorizontalAlignment="Center"/>
+                <TextBlock Text="You can still move the window and switch tabs."
+                           Style="{StaticResource MutedText}" Margin="0,8,0,0"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

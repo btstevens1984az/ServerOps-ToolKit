@@ -1,0 +1,21 @@
+{
+  "defaultDomain": "yourdomain.local",
+  "vCenters": [
+    {
+      "Name": "Production",
+      "Server": "vcenter-prod.yourdomain.local",
+      "UseCredentialManager": true,
+      "CredentialTarget": "HybridInfra-vCenter-Prod"
+    },
+    {
+      "Name": "DR / Secondary",
+      "Server": "vcenter-dr.yourdomain.local",
+      "UseCredentialManager": true,
+      "CredentialTarget": "HybridInfra-vCenter-DR"
+    }
+  ],
+  "snapshotWarningDays": 7,
+  "staleComputerDays": 90,
+  "aadConnectServer": "aadconnect.yourdomain.local",
+  "darkTheme": true
+}
